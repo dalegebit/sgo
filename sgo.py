@@ -36,7 +36,7 @@ with open(args.output_sl, 'w') as f:
     f.write("#SBATCH --nodes={}\n".format(args.nodes))
     f.write("#SBATCH --time={}:{}:{}\n".format(
         str(args.time // 3600).zfill(2),
-        str(args.time // 60).zfill(2),
+        str(args.time // 60 % 60).zfill(2),
         str(args.time % 60).zfill(2)
     ))
     f.write("#SBATCH --output={}\n".format(args.output))

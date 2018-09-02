@@ -8,15 +8,15 @@ from subprocess import call
 
 # Configure argument parser
 parser = argparse.ArgumentParser()
-parser.add_argument('--ntasks', type=int, default=1)
-parser.add_argument('--nodes', type=int, default=1)
-parser.add_argument('--time', type=int, default=10)
-parser.add_argument('--output', type=str, default='')
-parser.add_argument('--user', type=str, default='')
-parser.add_argument('-o', '--output_sl', type=str, default='')
-parser.add_argument('file', type=str)
+parser.add_argument('--ntasks', type=int, default=2, help="number of cores per node, default is 2")
+parser.add_argument('--nodes', type=int, default=1, help="number of nodes, default is 1")
+parser.add_argument('--time', type=int, default=10, help="expected running time in seconds, default is 10")
+parser.add_argument('--output', type=str, default='', help="name of the *.out file, default is `execution_file_name`.out")
+parser.add_argument('--user', type=str, default='', help="user name, default is the current user")
+parser.add_argument('-o', '--output_sl', type=str, default='', help="name of the *.sl file to build")
+parser.add_argument('file', type=str, help="name of the execution file")
 
-# Parse and initialize arguments
+# Parse and initialize arguments`
 args = parser.parse_args()
 if args.output == '':
     args.output = args.file + '.out'

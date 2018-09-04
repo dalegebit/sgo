@@ -11,10 +11,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--ntasks', type=int, default=2, help="number of cores per node, default is 2")
 parser.add_argument('--nodes', type=int, default=1, help="number of nodes, default is 1")
 parser.add_argument('--time', type=int, default=10, help="expected running time in seconds, default is 10")
-parser.add_argument('--output', type=str, default='', help="name of the *.out file, default is `execution_file_name`.out")
+parser.add_argument('--output', type=str, default='', help="the *.out file, default is `execution_file_name`.out")
 parser.add_argument('--user', type=str, default='', help="user name, default is the current user")
-parser.add_argument('-o', '--output_sl', type=str, default='', help="name of the *.sl file to build")
-parser.add_argument('file', type=str, help="name of the execution file")
+parser.add_argument('--input_file', type=str, default='', help="the input file like *.in, default is none")
+parser.add_argument('-o', '--output_sl', type=str, default='', help="the *.sl file to build")
+parser.add_argument('file', type=str, help="the execution file")
 
 # Parse and initialize arguments`
 args = parser.parse_args()
@@ -27,7 +28,9 @@ if args.output_sl == '':
 
 # Exit if the file provided does not exist
 if not os.path.exists(args.file):
-    sys.exit("{} does not exist!".format(file))
+    sys.exit("{} does not exist!".format(args.file))
+if args.input_file != '' and not os.path.exists(args.input_file):
+    sys.exit("{} does not exist!".format(args.input_file))
 
 # Build *.sl file
 with open(args.output_sl, 'w') as f:
@@ -43,7 +46,10 @@ with open(args.output_sl, 'w') as f:
     f.write("#SBATCH -A lc_an2\n")
     f.write("WORK_HOME=/home/rcf-proj/an2/{}\n".format(args.user))
     #  f.write("cd $WORK_HOME\n")
-    f.write("srun -n $SLURM_NTASKS --mpi=pmi2 {}".format(args.file))
+    srun_command = "srun -n $SLURM_NTASKS --mpi=pmi2 {}".format(args.file)
+    if args.input_file != '':
+        srun_command += " < {}".format(args.input_file)
+    f.write(srun_command)
 
 # Submit the job
 call(['sbatch', args.output_sl])

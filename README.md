@@ -1,27 +1,27 @@
 # sgo
 Easy tool for those who want to submit slurm jobs
 
-#Download
+## Download
 
 ```
-git clone https://github.com/dalegebit/sgo.git
+$ git clone https://github.com/dalegebit/sgo.git
 ```
 
-#Install
+## Install
 
 Running:
 ```
-cd sgo
-bash ./install.sh
+$ cd sgo
+$ bash ./install.sh
+```
 sgo.py will be copied to ~/.local/bin and ~/.local/bin will be added to PATH.
-```
 
 
-
-#Usage
+## Usage
 
 ```
-usage: sgo.py [-h] [--ntasks NTASKS] [--nodes NODES] [--time TIME]
+$ sgo -h
+usage: sgo [-h] [--ntasks NTASKS] [--nodes NODES] [--time TIME]
               [--output OUTPUT] [--user USER] [-o OUTPUT_SL]
               file
 
@@ -41,7 +41,7 @@ optional arguments:
 ```
 To run the example in http://cacs.usc.edu/education/cs596/src/mpi/mpi\_simple.c, just type this after compilation:
 ```
-sgo mpi_simple
+$ sgo mpi_simple
 ```
 Then mpi\_simple.sl will be automatically generated under the current directory and submitted to slurm.
 

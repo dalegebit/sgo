@@ -8,13 +8,13 @@ from subprocess import call
 
 # Configure argument parser
 parser = argparse.ArgumentParser()
-parser.add_argument('--ntasks', type=int, default=2, help="number of cores per node, default is 2")
-parser.add_argument('--nodes', type=int, default=1, help="number of nodes, default is 1")
-parser.add_argument('--time', type=int, default=10, help="expected running time in seconds, default is 10")
-parser.add_argument('--output', type=str, default='', help="the *.out file, default is `execution_file_name`.out")
-parser.add_argument('--user', type=str, default='', help="user name, default is the current user")
-parser.add_argument('--input_file', type=str, default='', help="the input file like *.in, default is none")
-parser.add_argument('-o', '--output_sl', type=str, default='', help="the *.sl file to build")
+parser.add_argument('-p', '--ntasks', type=int, default=2, help="number of cores per node, default is 2")
+parser.add_argument('-n','--nodes', type=int, default=1, help="number of nodes, default is 1")
+parser.add_argument('-t', '--time', type=int, default=10, help="expected running time in seconds, default is 10")
+parser.add_argument('-o', '--output', type=str, default='', help="the *.out file, default is `execution_file_name`.out")
+parser.add_argument('-u', '--user', type=str, default='', help="user name, default is the current user")
+parser.add_argument('-i', '--input_file', type=str, default='', help="the input file like *.in, default is none")
+parser.add_argument('-s', '--output_sl', type=str, default='', help="the *.sl file to build")
 parser.add_argument('file', type=str, help="the execution file")
 
 # Parse and initialize arguments`

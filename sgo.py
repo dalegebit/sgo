@@ -47,7 +47,7 @@ with open(args.output_sl, 'w') as f:
     f.write("#SBATCH -A lc_an2\n")
     f.write("WORK_HOME=/home/rcf-proj/an2/{}\n".format(args.user))
     #  f.write("cd $WORK_HOME\n")
-    srun_command = "{} -n $SLURM_NTASKS --mpi=pmi2 {}".format(
+    srun_command = "{} -n $SLURM_NTASKS {}".format(
         "mpirun" if args.mpirun else "srun",
         args.file
     )

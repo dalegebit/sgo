@@ -17,6 +17,7 @@ parser.add_argument('-u', '--user', type=str, default='', help="user name, defau
 parser.add_argument('-i', '--input_file', type=str, default='', help="the input file like *.in, default is none")
 parser.add_argument('-s', '--output_sl', type=str, default='', help="the *.sl file to build")
 parser.add_argument('--mpirun', action='store_true', help="use mpirun instead of srun")
+parser.add_argument('--args', type=str, default='', help="other argument for the program")
 parser.add_argument('file', type=str, help="the execution file")
 
 # Parse and initialize arguments`
@@ -49,9 +50,10 @@ with open(args.output_sl, 'w') as f:
     f.write("#SBATCH -A lc_an2\n")
     f.write("WORK_HOME=/home/rcf-proj/an2/{}\n".format(args.user))
     #  f.write("cd $WORK_HOME\n")
-    srun_command = "{} -n $SLURM_NTASKS {}".format(
+    srun_command = "{} -n $SLURM_NTASKS {} {}".format(
         "mpirun" if args.mpirun else "srun",
-        args.file
+        args.file,
+        args.args
     )
     if args.input_file != '':
         srun_command += " < {}".format(args.input_file)

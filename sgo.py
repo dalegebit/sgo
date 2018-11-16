@@ -16,6 +16,7 @@ parser.add_argument('-o', '--output', type=str, default='', help="the *.out file
 parser.add_argument('-u', '--user', type=str, default='', help="user name, default is the current user")
 parser.add_argument('-i', '--input_file', type=str, default='', help="the input file like *.in, default is none")
 parser.add_argument('-s', '--output_sl', type=str, default='', help="the *.sl file to build")
+parser.add_arguemnt('-g', '--gpus', type=int, default=0, help="number of gpus, default is 0")
 parser.add_argument('--mpirun', action='store_true', help="use mpirun instead of srun")
 parser.add_argument('--args', type=str, default='', help="other argument for the program")
 parser.add_argument('file', type=str, help="the execution file")
@@ -41,6 +42,8 @@ with open(args.output_sl, 'w') as f:
     f.write("#SBATCH --ntasks-per-node={}\n".format(args.ntasks))
     f.write("#SBATCH --nodes={}\n".format(args.nodes))
     f.write("#SBATCH --cpus-per-task={}\n".format(args.cpus))
+    if args.gpus != 0:
+        f.write("#SBATCH --gres=gpu:{}".format(args.gpus))
     f.write("#SBATCH --time={}:{}:{}\n".format(
         str(args.time // 3600).zfill(2),
         str(args.time // 60 % 60).zfill(2),

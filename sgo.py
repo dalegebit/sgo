@@ -8,7 +8,7 @@ from subprocess import call
 
 # Configure argument parser
 parser = argparse.ArgumentParser()
-parser.add_argument('-p', '--ntasks', type=int, default=2, help="number of cores per node, default is 2")
+parser.add_argument('-p', '--ntasks', type=int, default=1, help="number of cores per node, default is 1")
 parser.add_argument('-n','--nodes', type=int, default=1, help="number of nodes, default is 1")
 parser.add_argument('-c', '--cpus', type=int, default=1, help="number of cpus per task, default is 1")
 parser.add_argument('-t', '--time', type=int, default=10, help="expected running time in seconds, default is 10")
@@ -43,7 +43,7 @@ with open(args.output_sl, 'w') as f:
     f.write("#SBATCH --nodes={}\n".format(args.nodes))
     f.write("#SBATCH --cpus-per-task={}\n".format(args.cpus))
     if args.gpus != 0:
-        f.write("#SBATCH --gres=gpu:{}".format(args.gpus))
+        f.write("#SBATCH --gres=gpu:{}\n".format(args.gpus))
     f.write("#SBATCH --time={}:{}:{}\n".format(
         str(args.time // 3600).zfill(2),
         str(args.time // 60 % 60).zfill(2),
